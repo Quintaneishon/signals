@@ -1,1 +1,11 @@
-
+#name {
+    background-color: #4aaaa5;
+    color: #ffffff;
+    text-align: center;
+    padding-top: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    bottom: -5px;
+    font-family: "Georgia", Times, Times New Roman, serif; 
+  }

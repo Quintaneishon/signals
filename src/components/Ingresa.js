@@ -29,20 +29,17 @@ class Ingresa extends Component{
 
     periodica = () =>{
         this.setState({
-            res: true
+            res: true,
+            fnP: true,
+            gnP: false
         })
     }
 
     onChange = e => {
-        if(e.target.name == 'fnP' || e.target.name == 'gnP'){
-            this.setState({
-                [e.target.name] : e.target.checked
-            })
-        }else{
-            this.setState({
-                [e.target.name] : e.target.value
-            })
-        }
+        this.setState({
+            [e.target.name] : e.target.value,
+            res: false
+        })
     }
 
     render(){
@@ -145,9 +142,9 @@ class Ingresa extends Component{
             )
 
             result2 = (
-                <h1>
+                <h2>
                    {res.getString}
-                </h1>
+                </h2>
             )
        }
 
@@ -163,13 +160,9 @@ class Ingresa extends Component{
                 <div className="col-md-12 col-sm-12">
                     <div className="input-group">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">Conjunto A</span>
+                            <span className="input-group-text">fn</span>
                         </div>
-                        <input type="text" onChange={this.onChange} id="fn" name="fn" className="form-control" placeholder="Ej = {1 2 3 4 (5) 6 7 8 9}" value={this.state.fn}></input>
-                    </div>
-                    <div className="custom-control custom-switch">
-                    <input type="checkbox" id="fnP" name="fnP" onChange={this.onChange} value={this.state.fnP} className="custom-control-input" id="customSwitch1"/>
-                    <label className="custom-control-label" id="fnP" htmlFor="customSwitch1">¿Es periódica?</label>
+                        <input type="text" onChange={this.onChange} id="fn" name="fn" className="form-control" placeholder="Ej = {1 2 3 4 (5) 6 7 8 9} sera periodica cuando se necesite"></input>
                     </div>
                 </div>
             </div>
@@ -178,13 +171,9 @@ class Ingresa extends Component{
                 <div className="col-md-12 col-sm-12">
                     <div className="input-group">
                         <div className="input-group-prepend">
-                            <span className="input-group-text">Conjunto B</span>
+                            <span className="input-group-text">gn</span>
                         </div>
                         <input type="text" onChange={this.onChange} id="gn" name="gn" className="form-control" placeholder="Ej = {1 2 3 4 (5) 6 7 8 9}"></input>
-                    </div>
-                    <div className="custom-control custom-switch">
-                    <input type="checkbox" id="gnP" name="gnP" onChange={this.onChange} value={this.state.gnP} className="custom-control-input" id="customSwitch1"/>
-                    <label className="custom-control-label" htmlFor="customSwitch1">¿Es periódica?</label>
                     </div>
                 </div>
             </div>
