@@ -15,7 +15,7 @@ function createSeq(strSeq) {
 	let flag = false //Bandera que verifica si hay solo ceros
 	let newSeq = {}
 	let searched = strSeq.match(/\([+-]?\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\)/) //Encuentra cero
-	if (searched == -1){ //No se especifico cero, , regresa seq vacia
+	if (searched === -1){ //No se especifico cero, , regresa seq vacia
 		newSeq[0] = 0
 		return newSeq;
 	}
@@ -26,21 +26,21 @@ function createSeq(strSeq) {
 
 	for (let index = 0; index < preSeq.length; index++) {
 		const i = preSeq[index];
-		if (i == '0' && !flag){ //Omite ceros que no se necesitan mostrar del lado negativo
+		if (i === '0' && !flag){ //Omite ceros que no se necesitan mostrar del lado negativo
 			j += 1;
 			continue;
 		}
 
-		if (i != '0') //Cuando estan entre un numero o no hay cero
+		if (i !== '0') //Cuando estan entre un numero o no hay cero
 			flag = true;
 
 		if (flag){ //Se añaden a la secuencia
-			if(j == 0){ //Se añade el cero
+			if(j === 0){ //Se añade el cero
 				newSeq[j] = parseFloat(i.slice(1,-1));
 				j += 1;
 				continue;
 			}
-			if(i[0] == '(' || i.charAt(i.length-1) == ')'){ //Encontró más de un cero, regresa seq vacia
+			if(i[0] === '(' || i.charAt(i.length-1) === ')'){ //Encontró más de un cero, regresa seq vacia
 				newSeq = {}
 				newSeq[0] = 0
 				return newSeq
@@ -55,7 +55,7 @@ function createSeq(strSeq) {
 	}).pop()); //Nuevo posicion 
 	flag = true
 	for (let i = upper; i < 0; index--){ //Elimina ceros que no se necesitan mostrar del lado positivo
-		if (flag && newSeq[i + ''] != '0')
+		if (flag && newSeq[i + ''] !== '0')
 			flag = false;
 		if (flag)   
 			delete newSeq[i];
@@ -68,7 +68,7 @@ function toString(preStr, l, u, periodic){
 	if (periodic)
 		strSeq += '...';
 	for (let i = l; i < u + 1; i++) {
-		if (i == 0){ //Si es cero, lo marca
+		if (i === 0){ //Si es cero, lo marca
 			strSeq += ('(' + Math.round(preStr[i] * 100) / 100 + ') ')
 			continue;
 		}
@@ -95,14 +95,14 @@ function addSeqs(a, b, lower, upper){
 		} else {
 			tmp += 0 //No exite en el dictionario, suma con 0
 		}
-		if((!flag && tmp != 0) || i >= 0) //Omite ceros del lado negativo
+		if((!flag && tmp !== 0) || i >= 0) //Omite ceros del lado negativo
 			flag = true;
 		if(flag) //Asgina valores
 			newSeq[i] = tmp;
 	}
 	flag = true;
 	for (let i = upper; i > 0; i--) { //Elimina ceros que no se necesitan mostrar del lado positivo
-		if (flag && newSeq[i] != 0)
+		if (flag && newSeq[i] !== 0)
 			flag = false;
 		if (flag)
 			delete newSeq[i];
@@ -133,14 +133,14 @@ function subSeqs(a, b, lower, upper){
 		} else {
 			tmp -= 0 //No exite en el dictionario, suma con 0
 		}
-		if((!flag && tmp != 0) || i >= 0) //Omite ceros del lado negativo
+		if((!flag && tmp !== 0) || i >= 0) //Omite ceros del lado negativo
 			flag = true;
 		if(flag) //Asgina valores
 			newSeq[i] = tmp;
 	}
 	flag = true
 	for (let i = upper; i > 0; i--) { //Elimina ceros que no se necesitan mostrar del lado positivo
-		if (flag && newSeq[i] != 0)
+		if (flag && newSeq[i] !== 0)
 			flag = false;
 		if (flag)
 			delete newSeq[i];
@@ -171,14 +171,14 @@ function mulSeqs(a, b, lower, upper){ //Funciona igual que la suma
 			tmp *= 0
 		}
 
-		if ((!flag && tmp != 0) || i >= 0)
+		if ((!flag && tmp !== 0) || i >= 0)
 			flag = true;
 		if (flag)
 			newSeq[i] = tmp;
 	}
 	flag = true
 	for (let i = upper; i > 0; i--) {
-		if (flag && newSeq[i] != 0)
+		if (flag && newSeq[i] !== 0)
 			flag = false
 		if (flag)
 			delete newSeq[i]	
@@ -213,7 +213,7 @@ function ampSeq(a, lower, upper, C){ //Amplificación/Atenuación
 function desSeq(a, lower, upper, C){ //Desplazamiento
 	newSeq = {};
 	aux = {};
-	if (C == 0) //Si se desplaza 0, regresa la misma secuencia
+	if (C === 0) //Si se desplaza 0, regresa la misma secuencia
 		return a;
 	//Se recorre la secuencia, aquí no contará cero agregados, i.e. cuando se desplaza más allá del tamaño
 	for (let i = lower - C; i < upper + 1 - C; i++) {
@@ -257,7 +257,7 @@ function deciSeq(a, lower, upper, K){ //Diezmación
 			tmp = 0; //Lo mismo, pero si no se muestra en la secuencia original, f(n) = f(nK) = 0
 		}
 
-		if((tmp != 0 && !flag) || i == 0) //Si hay ceros innecesarios antes en la parte negativa
+		if((tmp !== 0 && !flag) || i === 0) //Si hay ceros innecesarios antes en la parte negativa
 			flag = true;
 		if (flag) //Valores validos (para mostrar nada más)
 			newSeq[i] = tmp;
@@ -265,7 +265,7 @@ function deciSeq(a, lower, upper, K){ //Diezmación
 	flag = true;
 	for(let i = upper; i > 0; i--){ //Recorriendo de derecha a izquierda (hasta el indice cero), eliminando ceros que no mostrar
 		try {
-			if(newSeq[i] != 0)
+			if(newSeq[i] !== 0)
 				flag = false;
 			if(flag)
 				delete newSeq[i];
@@ -306,11 +306,11 @@ function inteSeq(a, lower, upper, K, iType) { // Interpolación
 
 function getNewElement(iType, a, realIndex, K, newSeq, i) {
 	let tearedElement = 0;
-	if (iType == 'Z') //Interpolación a Cero
+	if (iType === 'Z') //Interpolación a Cero
 		return 0;
-	else if (iType == 'S') //Interpolación a Escalon
+	else if (iType === 'S') //Interpolación a Escalon
 		return a[realIndex];
-	else if (iType == 'L'){ //Interpolación Lineal
+	else if (iType === 'L'){ //Interpolación Lineal
 		if(!isNaN(Math.abs(a[realIndex] - a[realIndex + 1]) / K)){ //Si los elementos a tomar no son los ultimos
 			tearedElement =  Math.abs(a[realIndex] - a[realIndex + 1]) / K; //Aplicando Formula: Ni +|i abs(Nf - Ni)/K
 			if (a[realIndex] > a[realIndex + 1]) //Condicion de Nf < Ni
@@ -383,6 +383,12 @@ function SumConperiodica(seq, seqLen) {
 	for (let index = seq.lower; index <= seq.upper; index++) {
 		tem_[indexAux++] += seq.sequence[index];
 		indexAux = (indexAux >= topIndex)? 0: indexAux;
+	}
+	if(tem_.length-1 < indexZero){
+		let cuantos = indexZero - (tem_.length-1)
+		for(let i=0; i<cuantos; i++){
+			tem_.push(tem_[i])
+		}
 	}
 	tem_[indexZero] = '(' + tem_[indexZero] + ')';
 	console.log(tem_);
