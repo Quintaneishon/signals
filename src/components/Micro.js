@@ -4,6 +4,7 @@ import "p5/lib/addons/p5.sound";
 
 class Micro extends Component{
     state = {
+        activo: false,
         sound: null,
         diez: 2.5,
         inter: 0.5,
@@ -30,7 +31,7 @@ class Micro extends Component{
                 this.setState({sound: soundFile})
             });
             console.log('Playback resumed successfully');
-            });
+        });
         console.log(soundFile)
         if(soundFile)
             console.log('assa')
@@ -86,7 +87,6 @@ class Micro extends Component{
                             </button>
                         </div>
                         <div className="col-md-6 col-sm-12">
-                            <audio src=""></audio>
                             <button className="btn btn-primary" id="audio" onClick={this.playRecording}>
                                 PLAY <br></br><i style={{fontSize : '80px'}} className="fa fa-play"></i>
                             </button>
